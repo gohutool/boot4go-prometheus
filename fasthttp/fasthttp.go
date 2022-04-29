@@ -100,7 +100,10 @@ func init() {
 
 func RequestCounterHandler(next fasthttp.RequestHandler) fasthttp.RequestHandler {
 	return fasthttp.RequestHandler(func(ctx *fasthttp.RequestCtx) {
-		next(ctx)
+		if next != nil {
+			next(ctx)
+		}
+
 		func() {
 			defer func() {
 				if err := recover(); err != nil {
@@ -122,7 +125,7 @@ func RequestCounterHandler(next fasthttp.RequestHandler) fasthttp.RequestHandler
 
 func PrometheusHandler(opts HandlerOpts) fasthttp.RequestHandler {
 	return InstrumentMetricHandler(prometheus.DefaultRegisterer,
-		RequestCounterHandler(HandlerFor(prometheus.DefaultGatherer, opts)))
+		HandlerFor(prometheus.DefaultGatherer, opts))
 }
 
 var requestCounter *prometheus.CounterVec
