@@ -110,6 +110,35 @@ func InitRouter(router *routing.Router) {
 	}()
 ```
 
+- visit http://localhost/metrics
+
+```
+# HELP promhttp_metric_handler_requests_total Total number of scrapes by HTTP status code.
+# TYPE promhttp_metric_handler_requests_total counter
+promhttp_metric_handler_requests_total{code="200"} 7
+promhttp_metric_handler_requests_total{code="302"} 0
+promhttp_metric_handler_requests_total{code="303"} 0
+promhttp_metric_handler_requests_total{code="304"} 0
+promhttp_metric_handler_requests_total{code="305"} 0
+promhttp_metric_handler_requests_total{code="307"} 0
+promhttp_metric_handler_requests_total{code="308"} 0
+promhttp_metric_handler_requests_total{code="400"} 0
+promhttp_metric_handler_requests_total{code="401"} 0
+promhttp_metric_handler_requests_total{code="403"} 0
+promhttp_metric_handler_requests_total{code="404"} 0
+promhttp_metric_handler_requests_total{code="405"} 0
+promhttp_metric_handler_requests_total{code="500"} 2
+promhttp_metric_handler_requests_total{code="501"} 0
+promhttp_metric_handler_requests_total{code="502"} 0
+promhttp_metric_handler_requests_total{code="503"} 0
+promhttp_metric_handler_requests_total{code="504"} 0
+promhttp_metric_handler_requests_total{code="505"} 0
+promhttp_metric_handler_requests_total{code="All"} 9
+promhttp_metric_handler_requests_total{code="Other"} 0
+# HELP worker_jobs_processed_gauge
+# TYPE worker_jobs_processed_gauge gauge
+worker_jobs_processed_gauge{BeanName="Hello"} 0
+```
 
 # Related Project
 
