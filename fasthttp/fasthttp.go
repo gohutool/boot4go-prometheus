@@ -31,6 +31,7 @@ const (
 	acceptEncodingHeader  = "Accept-Encoding"
 
 	REQUEST_OTHER = "Other"
+	REQUEST_ALL   = "All"
 )
 
 func ParseFormat(acceptHeader string, enableOpenMetrics bool) expfmt.Format {
@@ -112,6 +113,8 @@ func RequestCounterHandler(next fasthttp.RequestHandler) fasthttp.RequestHandler
 			} else {
 				requestCounter.WithLabelValues(REQUEST_OTHER).Inc()
 			}
+
+			requestCounter.WithLabelValues(REQUEST_ALL).Inc()
 
 		}()
 	})
