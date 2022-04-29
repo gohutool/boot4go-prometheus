@@ -123,6 +123,13 @@ func RequestCounterHandler(next fasthttp.RequestHandler) fasthttp.RequestHandler
 	})
 }
 
+func PrometheusHandlerFor(opts HandlerOpts, next fasthttp.RequestHandler) fasthttp.RequestHandler {
+	return fasthttp.RequestHandler(func(ctx *fasthttp.RequestCtx) {
+		next(ctx)
+		PrometheusHandler(opts)(ctx)
+	})
+}
+
 func PrometheusHandler(opts HandlerOpts) fasthttp.RequestHandler {
 	return InstrumentMetricHandler(prometheus.DefaultRegisterer,
 		HandlerFor(prometheus.DefaultGatherer, opts))
