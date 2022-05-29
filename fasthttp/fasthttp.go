@@ -104,13 +104,14 @@ func RequestCounterHandler(next fasthttp.RequestHandler) fasthttp.RequestHandler
 			next(ctx)
 		}
 
-		func() {
+		code := strconv.Itoa(ctx.Response.StatusCode())
+
+		go func() {
 			defer func() {
 				if err := recover(); err != nil {
 					fasthttp_logger.Error("%v", err)
 				}
 			}()
-			code := strconv.Itoa(ctx.Response.StatusCode())
 			if _, ok := Request_Metrics_Codes[code]; ok {
 				requestCounter.WithLabelValues(code).Inc()
 			} else {
